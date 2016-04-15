@@ -21,14 +21,15 @@
             <div class="container">
                 <h1>"Book-My-Bus is your best friend for safe, fast and hassle free travel"</h1>
                 <br>
-                <form id="form1" class="form-horizontal" role="form">
+                <form id="form1" class="form-horizontal" role="form" method = "POST" action="{% url 'route_search' %}">
+                	{% csrf_token %}
                     <div class="form-group">
                         <div class="col-sm-5">
                             <div class="input-group margin-bottom-sm">
                                 <span class="input-group-addon">
                                     <i class="fa fa-bus fa-lg"></i>
                                 </span>
-                                <input type="text" class="form-control" id="busno" placeholder="Bus Number (Ex: 534)">
+                                <input type="text" class="form-control" name="busno" placeholder="Bus Number (Ex: 374)" required>
                             </div>
                         </div>
                     </div>

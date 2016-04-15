@@ -19,9 +19,9 @@
 
 		<header class="jumbotron jumb1">
 			<div class="container">
-				<h1>"Book-My-Bus is your best friend for safe, fast and hassle free travel"</h1>
+				<h1 style="color: #fff">"Book-My-Bus is your best friend for safe, fast and hassle free travel"</h1>
 				<br>
-				<ul style="font-size: 14px; letter-spacing: 3px;">
+				<ul style="color: #fff; font-size: 14px; letter-spacing: 3px;">
 					<li>Save yourself from ticket queues in DTC buses.</li>
 					<li>Know DTC bus timings to avoid waiting on bus stops.</li>
 					<li>Get a complete DTC bus route.</li>
@@ -29,35 +29,35 @@
 					<li>Get safety rating of a DTC bus route.</li>
 				</ul>
 				<br>
-				<form id="form1" class="form-horizontal" role="form">
+				<form id="form1" class="form-horizontal" role="form" method="POST" action="{% url 'ticket_search' %}"> {% csrf_token %}
 					<div class="form-group">
 						<div class="col-sm-5">
-							<div class="input-group margin-bottom-sm">
-								<span class="input-group-addon">
-					        		<i class="fa fa-map-marker fa-lg"></i>
-					    		</span>
-								<input type="text" class="form-control" id="from" placeholder="Departure Location">
-							</div>
+							<select name="dropdown" required>
+								<option style="letter-spacing: 3px;" value="">Source Bus Stop</option>
+				        		{% for node in Vertex %}
+				         			<option style="letter-spacing: 3px;" value="{{node}}">{{node}}</option>
+				         		{% endfor %}
+				         	</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-5">
-							<div class="input-group margin-bottom-sm">
-								<span class="input-group-addon">
-				        			<i class="fa fa-map-marker fa-lg"></i>
-				    			</span>
-								<input type="text" class="form-control" id="to" placeholder="Arrival Location">
-							</div>
+							<select name="dropdown2" required>
+								<option style="letter-spacing: 3px;" value="">Destination Bus Stop</option>
+				         		{% for node in Vertex %}
+				         			<option style="letter-spacing: 3px;" value="{{node}}">{{node}}</option>
+				         		{% endfor %}
+				         	</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-5">
-							<div class="input-group clockpicker" data-placement="top" data-align="top" data-autoclose="true">
-								<span class="input-group-addon">
-				        			<i class="fa fa-clock-o"></i>
-				    			</span>
-				    			<input type="text" class="form-control" value="" placeholder="Time of Departure">
-							</div>
+				    		<input id="Adult" name="Adult" type="number" min="1" max="10" placeholder="Number of Adult Passengers" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-5">
+				    		<input id="Children" name="Children" type="number" min="0" max="10" placeholder="Number of Children Passengers" required>
 						</div>
 					</div>
 					<button type="submit" class="btn btn-default btn-lg">Search</button>

@@ -57,7 +57,6 @@ address{
     padding:20px 5px 20px 5px;
     margin:0px auto;
     background: #008000;
-    color: #fff;
 }
 
 .jumb2{
@@ -81,11 +80,55 @@ address{
     color: #fff;
 }
 
+.jumb5{
+    padding:20px 5px 20px 5px;
+    margin:0px auto;
+    background: #075aaa;
+    color: #fff;
+}
+
 #form1 input {
     height: 50px;
     font-size: 18px;
+    width: 460px;
+}
+
+#form1 select {
+    height: 50px;
+    font-size: 18px;
+    width: 460px;
 }
 
 #form1 textarea {
     font-size: 18px;
+}
+
+#map {
+    display: inline-block;
+    float: left; 
+    width: 800px;
+    height: 700px;
+    border: 2px solid black;
+    color: black;
+    font-family: Arial;
+    letter-spacing: 2px;
+}
+
+#data {
+    display: inline-block;
+    float: right;
+}
+
+.table {
+    background: #eb2226;
+}
+
+#data .table td{
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+#ticket-summary .table td{
+    word-wrap: break-word;
+    min-width: 200px;
 }

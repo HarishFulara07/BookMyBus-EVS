@@ -21,13 +21,19 @@ from EVS.views import feedback
 from EVS.views import signup
 from EVS.views import login_check
 from EVS.views import log_out
+from EVS.views import route_search
+from EVS.views import ticket_search
+from EVS.views import payment
 
 urlpatterns = [
 	url(r'^$', home, name='home'),
 	url(r'^route/$', route, name='route'),
+    url(r'^route_search/$', route_search, name='route_search'),
 	url(r'^feedback/$', feedback, name='feedback'),
     url(r'^signup/$', signup, name='signup'),
     url(r'^login_check/$', login_check, name='login_check'),
     url(r'^log_out/$', log_out, name='log_out'),
+    url(r'^ticket_search/$', ticket_search, name='ticket_search'),
+    url(r'^payment/$', payment, name='payment'),
     url(r'^admin/', admin.site.urls),
 ]
