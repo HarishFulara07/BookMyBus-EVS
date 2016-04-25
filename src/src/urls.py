@@ -24,6 +24,8 @@ from EVS.views import log_out
 from EVS.views import route_search
 from EVS.views import ticket_search
 from EVS.views import payment
+from EVS.views import safety
+from EVS.views import safety_search
 
 urlpatterns = [
 	url(r'^$', home, name='home'),
@@ -35,5 +37,7 @@ urlpatterns = [
     url(r'^log_out/$', log_out, name='log_out'),
     url(r'^ticket_search/$', ticket_search, name='ticket_search'),
     url(r'^payment/$', payment, name='payment'),
+    url(r'^safety/$', safety, name='safety'),
+    url(r'^safety_search/$', safety_search, name='safety_search'),
     url(r'^admin/', admin.site.urls),
 ]

@@ -19,7 +19,7 @@ class SignUpForm(forms.ModelForm):
 class FeedbackForm(forms.ModelForm):
 	class Meta:
 		model = Feedback
-		fields = ['bus_number','feedback']
+		fields = ['bus_number','feedback','rating']
 
 	bus_number = forms.CharField(required = True)
 	feedback = forms.CharField(widget = forms.Textarea, required = True)

@@ -11,7 +11,7 @@ class SignUpAdmin(admin.ModelAdmin):
 admin.site.register(SignUp, SignUpAdmin)
 
 class FeedbackAdmin(admin.ModelAdmin):
-	list_display = ["bus_number","feedback","first_name","last_name","timestamp","updated"]
+	list_display = ["bus_number","feedback","rating","first_name","last_name","timestamp","updated"]
 	form = FeedbackForm
 
 admin.site.register(Feedback, FeedbackAdmin)

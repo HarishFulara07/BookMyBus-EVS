@@ -21,7 +21,7 @@
             <div class="container">
                 <h1>"Book-My-Bus is your best friend for safe, fast and hassle free travel"</h1>
                 <br>
-                <form id="form1" class="form-horizontal" role="form" method="POST" action="{% url 'feedback' %}">
+                <form id="form2" class="form-horizontal" role="form" method="POST" action="{% url 'feedback' %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <div class="col-sm-5">
@@ -29,7 +29,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-bus fa-lg"></i>
                                 </span>
-                                <input type="text" class="form-control" name="bus_number" placeholder="Feedback for Bus Number ? (Ex: 534)" required>
+                                <input type="text" class="form-control" name="bus_number" placeholder="Feedback for Bus Number ? (Ex: 8A)" required>
                             </div>
                         </div>
                     </div>
@@ -41,6 +41,18 @@
                                 </span>
                                 <textarea class="form-control" rows="8" name="feedback" placeholder="Please Share Your DTC Bus Travel Experience With Us ..." required></textarea>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <select id = "rating" name = "rating" style="color: black" required>
+                                <option style="letter-spacing: 3px;" value="">Rate Your Safety Experience</option>
+                                <option style="letter-spacing: 3px;" value="1">1 - Poor Safety</option>
+                                <option style="letter-spacing: 3px;" value="2">2 - Satisfactory Safety</option>
+                                <option style="letter-spacing: 3px;" value="3">3 - Average Safety</option>
+                                <option style="letter-spacing: 3px;" value="4">4 - Good Safety</option>
+                                <option style="letter-spacing: 3px;" value="5">5 - Very Good Safety</option>
+                            </select>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-default btn-lg">Submit</button>

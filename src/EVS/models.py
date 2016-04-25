@@ -19,6 +19,7 @@ class SignUp(models.Model):
 class Feedback(models.Model):
 	bus_number = models.CharField(max_length = 10, blank = False)
 	feedback = models.CharField(max_length = 1024, blank = False)
+	rating = models.DecimalField(max_digits=2, decimal_places=0, null = True)
 	first_name = models.CharField(max_length = 120, blank = False, null = True)
 	last_name = models.CharField(max_length = 120, blank = False, null = True)
 	timestamp = models.DateTimeField(auto_now_add = True, auto_now = False)

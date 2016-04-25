@@ -6,7 +6,14 @@ from .models import SignUp, Feedback, BusStopCoordinates, Edges, Vertices, Bus
 from django.core import serializers
 import itertools
 
+#for sending message to mobile phone via www.way2sms.com
+
+import urllib2
+import cookielib
+import sys
+
 Stops = []
+msg = []
 
 # Create your views here.
 def home(request):
@@ -59,11 +66,12 @@ def feedback(request):
 			if form.is_valid():
 				bus_number = request.POST['bus_number']
 				feedback = request.POST['feedback']
+				rating = request.POST['rating']
 				first_name = request.user.first_name
 				last_name = request.user.last_name
 
 				#add info to our database
-				Feedback(bus_number = bus_number, feedback = feedback, first_name = first_name, last_name = last_name).save()
+				Feedback(bus_number = bus_number, feedback = feedback, rating = rating, first_name = first_name, last_name = last_name).save()
 
 				context = {
 					'message' : 'Thank you for your feedback.'
@@ -225,7 +233,7 @@ class NewPath:
 						break
 
 			list2.append(sum2)
-			print list2
+			#print list2
 			if(list2[3]>0 and list2[3]<=4):
 				list2.append(5)
 				list2.append(3)
@@ -244,7 +252,7 @@ class NewPath:
 			sum = sum+listitem[4]
 			sum2 = sum2+listitem[5]
 		listA.append(sum*int(self.Adults)+sum2*int(self.Children))
-		print listA
+		#print listA
 		return listA
 
 def find_all_paths(graph, start, end, path=[]):
@@ -343,12 +351,17 @@ def ticket_search(request):
 			B = request.POST.get('dropdown2')
 			C = request.POST.get('Adult')
 			D = request.POST.get('Children')
-			# print A
+			
+			msg.append(A)
+			msg.append(B)
+			msg.append(C)
+			msg.append(D)
+
+			print msg[0]
 			# print B
 			x = find_all_paths(DICT,A,B)
 			if(D==None):
 				D = 0
-
 
 			i = 0
 			PATHS = []
@@ -418,7 +431,7 @@ def ticket_search(request):
 					BusComb = []
 					# print path,"BUSKY: " + Busk.Number, k
 					BusDB =  BusDB + FindBusCombinations(RemStations,Buses,BusComb,Stops)
-					print "Stops",Stops
+					#print "Stops",Stops
 					# print BusDB
 				# print "BUS",BusDB 
 				flag2=0
@@ -441,7 +454,6 @@ def ticket_search(request):
 				# print Stops
 				PATHS.append(NewPath(path,sum,BusDatabase,Stops,g,C,D))
 
-
 				context = {
 					"A": A,
 					"B": B,
@@ -455,13 +467,88 @@ def ticket_search(request):
 
 		else:
 			context = {
-				'message' : 'You are not logged in. Please login to book tickets.'
+				'message' : 'You are not logged in. Please login to buy tickets.'
 			}
 			return render(request, "message.html", context)		
 
 def payment(request):
+	username = "9868058344"
+	passwd = "123456"
+	message = "Your tickets for " + msg[2] + " adult passenger(s) and " + msg[3] + " children passenger(s) from " + msg[0] + " to " + msg[1] + " has been booked."
+	number = request.user.username
+	 
+	#Logging into the SMS Site
+	url = 'http://site24.way2sms.com/Login1.action?'
+	data = 'username='+username+'&password='+passwd+'&Submit=Sign+in'
+	 
+	#For Cookies:
+	cj = cookielib.CookieJar()
+	opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+	 
+	# Adding Header detail:
+	opener.addheaders = [('User-Agent','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36')]
+	 
+	try:
+	    usock = opener.open(url, data)
+	except IOError:
+	    print "Error while logging in."
+	    sys.exit(1)
+	 
+	 
+	jession_id = str(cj).split('~')[1].split(' ')[0]
+	send_sms_url = 'http://site24.way2sms.com/smstoss.action?'
+	send_sms_data = 'ssaction=ss&Token='+jession_id+'&mobile='+number+'&message='+message+'&msgLen=136'
+	opener.addheaders = [('Referer', 'http://site25.way2sms.com/sendSMS?Token='+jession_id)]
+	 
+	try:
+	    sms_sent_page = opener.open(send_sms_url,send_sms_data)
+	except IOError:
+	    print "Error while sending message"
+	    sys.exit(1)
+
 	context = {
-		'message' : 'Payment successful. Your tickets have been booked.'
+		'message' : 'Payment successful. Your tickets have been booked. You will receive confirmation on your registered mobile number.'
 	}
 
 	return render(request, "message.html", context)
+
+def safety(request):
+	return render(request, "safety.html", {})
+
+def safety_search(request):
+	bno = -1
+	
+	if request.method == "POST":
+		bno = request.POST['busno']
+
+	queryset = BusStopCoordinates.objects.all().filter(bus_number = bno)
+
+	if not queryset:
+		context = {
+			'message' : 'No such bus number exist. Please try again with a valid bus number',
+		}
+		return render(request, "message.html", context)
+	else:
+		search_queryset_use = Feedback.objects.all().filter(bus_number = bno).values('rating')
+		search_queryset_pass = Feedback.objects.all().filter(bus_number = bno)
+		if not search_queryset_use:
+			context = {
+				'message' : 'Sorry, no feedback for bus number ' + bno + " exists",
+			}
+			return render(request, "message.html", context)
+
+		rating = 0
+		count = 0
+
+		for i in search_queryset_use:
+			rating = rating + i['rating']
+			count = count + 1
+
+		rating = rating/count
+
+		context = {
+			"queryset": search_queryset_pass,
+			"bus_number": bno,
+			"rating": rating,
+		}
+		return render(request, "safety_search.html", context)
