@@ -1,4 +1,9 @@
 # EVS-Django
 Website as per part of our EVS project made in Django (Python)
 
-All Done. Get Ready for demo.
+The web-app has following functionalities :-
+
+1. Book DTC bus ticket by providing starting and destination bus stop. The app also sends a message to the registered mobile number once the ticket is booked.
+2. Search a bus route. The bus route will display via markers in Google Map.
+3. Give Feedback of your DTC bus Journey.
+4. Find safety rating of a bus.
