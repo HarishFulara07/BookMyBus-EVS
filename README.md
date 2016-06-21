@@ -1,5 +1,5 @@
 # BookMyBus-EVS
-Website as per part of our EVS project made in Django (Python)
+Website as per part of our EVS project made in Django (Python).
 
 The web-app has following functionalities :-
 
