@@ -1,4 +1,4 @@
-# EVS-Django
+# BookMyBus-EVS
 Website as per part of our EVS project made in Django (Python)
 
 The web-app has following functionalities :-
@@ -7,3 +7,6 @@ The web-app has following functionalities :-
 2. Search a bus route. The bus route will display via markers in Google Map.
 3. Give Feedback of your DTC bus Journey.
 4. Find safety rating of a bus.
+
+
+Note: Please look at the poster to get more detailed information about our project.
