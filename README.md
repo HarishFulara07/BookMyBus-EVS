@@ -1,5 +1,5 @@
 # BookMyBus
-Website as part of our EVS project built using Django (Python).
+Web app as part of our EVS project built using Django (Python).
 
 The web-app has following features :-
 
