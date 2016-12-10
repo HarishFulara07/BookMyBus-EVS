@@ -1,7 +1,7 @@
-# BookMyBus-EVS
-Website as per part of our EVS project made in Django (Python).
+# BookMyBus
+Website as part of our EVS project built using Django (Python).
 
-The web-app has following functionalities :-
+The web-app has following features :-
 
 1. Book DTC bus ticket by providing starting and destination bus stop. The app also sends a message to the registered mobile number once the ticket is booked.
 2. Search a bus route. The bus route will display via markers in Google Map.
@@ -9,4 +9,4 @@ The web-app has following functionalities :-
 4. Find safety rating of a bus.
 
 
-Note: Please look at the poster to get more detailed information about our project.
+Note: Please look at the [evs_poster.pdf] (https://github.com/HarishFulara07/BookMyBus-EVS/blob/master/evs_poster.pdf) to get more detailed information about our project.
